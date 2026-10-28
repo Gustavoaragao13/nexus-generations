@@ -184,11 +184,11 @@ function iniciarContadorNexus() {
 // 8. PATROCINADORES (EFEITO THANOS SNAP)
 // ==========================================
 const activePartners = [
-  { name: "TEIXEIRA TURISMO", logo: "patrocinador1.JPEG" },
+  { name: "TEIXEIRA TURISMO", logo: "patrocinador1.jpeg" },
   { name: "NEXUS GENERATIONS", logo: "patrocinador2.png" },
-  { name: "KIAÇAÍ", logo: "patrocinador4.JPEG" },
-  { name: "TEIXEIRA QUADRI", logo: "patrocinador5.JPEG" },
-  { name: "FLIPER GAMES", logo: "patrocinador6.JPEG" }
+  { name: "KIAÇAÍ", logo: "patrocinador4.jpeg" },
+  { name: "TEIXEIRA QUADRI", logo: "patrocinador5.jpeg" },
+  { name: "FLIPER GAMES", logo: "patrocinador6.jpeg" }
 ];
 
 function initThanosPartners() {

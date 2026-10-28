@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heróis de Nova Roma // NexusGen</title>
+
+  <!-- Tipografias Cyberpunk & Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <!-- Folhas de Estilos -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="herois.css">
+
+  <!-- Motor de decodificação QR Code via Canvas -->
+  <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+</head>
+<body class="nova-roma-body">
+
+  <!-- MODAL DE AUTENTICAÇÃO HOLOGRÁFICA (COM FUNDO DO MASCOTE) -->
+  <div class="nr-auth-overlay" id="nrAuthOverlay">
+    <div class="nr-auth-card cyber-hud-corners">
+      <div class="nr-card-bg-art" style="background-image: url('mascote.jpg');"></div>
+      <div class="nr-card-overlay-fx"></div>
+
+      <div class="nr-auth-content">
+        <div class="nr-brand-badge">
+          <i class="bi bi-shield-shaded cyan-text"></i>
+          <span>TERMINAL // NOVA ROMA V1.0</span>
+        </div>
+
+        <h2 class="nr-auth-title">HERÓIS DE <span class="cyan-text">NOVA ROMA</span></h2>
+        <p class="nr-auth-subtitle">Arquivo confidencial dos Semideuses e Guardiões Imperiais.</p>
+
+        <!-- CENÁRIO A: USUÁRIO JÁ CONECTADO NA NEXUS -->
+        <div id="nrLoggedPrompt" style="display: none;" class="nr-prompt-box">
+          <p style="color: #cbd5e1; font-size: 0.9rem;">Operador detectado: <strong id="nrLoggedEmail" class="pink-text"></strong></p>
+          <div class="nr-btn-group">
+            <button type="button" class="btn-cyan-small glow-btn" id="btnProceedCurrentAccount">
+              <i class="bi bi-arrow-right-circle-fill"></i> CONTINUAR COM ESTE E-MAIL
+            </button>
+            <button type="button" class="btn-outline-cyan-small" id="btnSwitchAccountPrompt">
+              <i class="bi bi-arrow-left-right"></i> TROCAR DE CONTA
+            </button>
+          </div>
+        </div>
+
+        <!-- CENÁRIO B: FORMULÁRIO DE LOGIN MANUAL -->
+       
+        <form id="nrLoginForm" class="nr-form-box">
+          <div class="cyber-input-group" style="margin-bottom: 0.8rem;">
+            <label style="display:block; font-size:0.75rem; color:#00f2fe; margin-bottom:4px;"><i class="bi bi-envelope-at"></i> E-MAIL OPERACIONAL</label>
+            <input type="email" id="nrEmailInput" class="cyber-field" placeholder="operador@portalnexus.com" required style="width:100%;">
+          </div>
+          <div class="cyber-input-group" style="margin-bottom: 1rem;">
+            <label style="display:block; font-size:0.75rem; color:#00f2fe; margin-bottom:4px;"><i class="bi bi-key-fill"></i> CHAVE DE ACESSO</label>
+            <input type="password" id="nrPassInput" class="cyber-field" placeholder="••••••••" required minlength="6" style="width:100%;">
+          </div>
+          <button type="submit" class="btn-cyan glow-btn" style="width: 100%; justify-content: center;">
+            <i class="bi bi-fingerprint"></i> DESCRIPTOGRAFAR ARQUIVO
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- CABEÇALHO DO TERMINAL COM PROFILE MINIMALISTA -->
+  <header class="nr-main-header">
+    <div class="nr-header-container">
+      <a href="index.html" class="nr-back-link">
+        <i class="bi bi-arrow-left"></i> VOLTAR À NEXUS
+      </a>
+
+      <div class="nr-header-title">
+        <h1>HERÓIS DE <span>NOVA ROMA</span></h1>
+        <span class="nr-tracker-badge">
+          COLEÇÃO: <strong id="unlockedCount">0</strong> / 60 DESBLOQUEADOS
+        </span>
+      </div>
+
+      <!-- ÁREA DE CONTROLES: SCANNER + PERFIL MINIMALISTA DO OPERADOR -->
+      <div class="nr-header-actions">
+        <button type="button" class="btn-cyan-small glow-btn" id="btnOpenScanner">
+          <i class="bi bi-qr-code-scan"></i> ESCANEAR QR CODE
+        </button>
+
+        <!-- CARD MINIMALISTA DO USUÁRIO -->
+        <div class="nr-user-miniprofile" id="nrMiniProfile" title="Conta Conectada">
+          <div class="miniprofile-avatar" id="nrMiniAvatarLetter">OP</div>
+          <div class="miniprofile-info">
+            <span class="miniprofile-tag" id="nrMiniFaction">SEMIDEUS</span>
+            <span class="miniprofile-name" id="nrMiniName">Operador</span>
+          </div>
+          <button type="button" class="miniprofile-logout" id="btnMiniLogout" title="Desconectar Operador">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVEGAÇÃO DAS SAGAS -->
+    <nav class="nr-sagas-nav">
+      <button class="nr-saga-tab active">1. Os Semideuses (Primeiro Evento — 60)</button>
+      <button class="nr-saga-tab locked-saga" title="Expansão bloqueada">2. Segundo Evento (15) <i class="bi bi-lock-fill"></i></button>
+      <button class="nr-saga-tab locked-saga" title="Expansão bloqueada">3. Terceiro Evento (60) <i class="bi bi-lock-fill"></i></button>
+      <button class="nr-saga-tab locked-saga" title="Expansão bloqueada">4. Quarto Evento (60) <i class="bi bi-lock-fill"></i></button>
+      <button class="nr-saga-tab locked-saga" title="Expansão bloqueada">5. Quinto Evento (28) <i class="bi bi-lock-fill"></i></button>
+      <button class="nr-saga-tab locked-saga" title="Expansão bloqueada">6. Sexto Evento (36) <i class="bi bi-lock-fill"></i></button>
+    </nav>
+  </header>
+
+  <!-- GRADE DOS 60 CARDS -->
+  <main class="nr-grid-container">
+    <div class="nr-cards-grid" id="heroesGrid"></div>
+  </main>
+
+  <!-- MODAL DO SCANNER NATIVO DE CÂMERA -->
+  <div class="nr-scanner-modal-overlay" id="nrScannerModal">
+    <div class="nr-scanner-box cyber-hud-corners">
+      <div class="nr-scanner-header">
+        <div class="nr-brand-badge">
+          <i class="bi bi-camera-video-fill cyan-text"></i>
+          <span>SCANNER ÓPTICO // NOVA ROMA</span>
+        </div>
+        <button type="button" class="btn-close-scanner" id="btnCloseScanner">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <!-- VISOR COM FEED AO VIVO -->
+      <div class="scanner-viewfinder">
+        <video id="scannerVideo" autoplay muted playsinline></video>
+        <canvas id="scannerCanvas"></canvas>
+        <div class="scanner-laser-line"></div>
+      </div>
+
+      <!-- FALLBACK PARA DIGITAÇÃO DO CÓDIGO SECRETO -->
+      <div style="display: flex; gap: 8px; margin-top: 0.5rem;">
+        <input type="text" id="manualHeroInput" class="cyber-field" placeholder="Digite o código secreto (ex: NR-K89X)" style="flex: 1; text-transform: uppercase;">
+        <button type="button" class="btn-cyan-small glow-btn" id="btnManualUnlock">
+          <i class="bi bi-unlock-fill"></i> ATIVAR
+        </button>
+      </div>
+
+      <p class="scanner-tip">Aponte a câmera para o QR Code da placa ou digite o código secreto impresso.</p>
+    </div>
+  </div>
+
+  <script type="module" src="herois.js"></script>
+</body>
+</html>

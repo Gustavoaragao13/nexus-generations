@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de QR Codes // Heróis de Nova Roma</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0f172a;
+      font-family: 'Share Tech Mono', monospace;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .top-controls {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #1e293b;
+      padding: 15px 20px;
+      border-radius: 8px;
+    }
+    input {
+      background: #0f172a;
+      border: 1px solid #00f2fe;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 6px;
+      width: 320px;
+      font-family: inherit;
+    }
+    button {
+      background: #00f2fe;
+      color: #000;
+      border: none;
+      font-weight: bold;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+    }
+    button:hover { background: #38bdf8; }
+
+    /* Folha de Impressão */
+    .print-sheet {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .qr-card {
+      background: #fff;
+      color: #000;
+      border: 2px dashed #000;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      page-break-inside: avoid;
+    }
+    .qr-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 2px;
+    }
+    .qr-sub {
+      font-size: 8px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+    .qr-img {
+      width: 125px;
+      height: 125px;
+    }
+    .qr-id {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 12px;
+      margin-top: 5px;
+      color: #0f172a;
+    }
+    .qr-secret-key {
+      font-size: 11px;
+      font-weight: bold;
+      color: #ff007f;
+      background: #fdf2f8;
+      border: 1px solid #fbcfe8;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 3px;
+    }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .top-controls { display: none; }
+      .print-sheet {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+      .qr-card { border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-controls">
+    <div>
+      <label>URL Base do Site: </label>
+      <input type="text" id="baseUrlInput" value="http://127.0.0.1:5500/herois.html">
+    </div>
+    <button onclick="gerarTodosQRs()">GERAR QR CODES</button>
+    <button onclick="window.print()" style="background: #ff007f; color: #fff;">IMPRIMIR (PDF)</button>
+  </div>
+
+  <div class="print-sheet" id="qrContainer"></div>
+
+  <script>
+    const secretCodes = [
+      "NR-K89X", "NR-7B2M", "NR-9Q1Z", "NR-3F8L", "NR-5V2W", "NR-8T4P", "NR-2M9Y", "NR-6C1D", "NR-4H7K", "NR-1N5R",
+      "NR-9E3S", "NR-7X8A", "NR-2Q4F", "NR-6L1T", "NR-8P9C", "NR-3W5V", "NR-5D7H", "NR-1Z2M", "NR-4K8B", "NR-9Y6N",
+      "NR-7R1Q", "NR-2T8X", "NR-6F4W", "NR-8C9P", "NR-3M5L", "NR-5H7K", "NR-1V2D", "NR-4B8Y", "NR-9S6T", "NR-7A1Z",
+      "NR-2W4E", "NR-6K8R", "NR-8X9M", "NR-3P5C", "NR-5L7F", "NR-1Q2V", "NR-4T8H", "NR-9D6B", "NR-7M1Y", "NR-2Y4S",
+      "NR-6Z8A", "NR-8E9W", "NR-3C5K", "NR-5F7R", "NR-1H2X", "NR-4V8M", "NR-9B6P", "NR-7T1L", "NR-2K4C", "NR-6W8F",
+      "NR-8S9D", "NR-3Y5H", "NR-5M7B", "NR-1R2T", "NR-4X8A", "NR-9F6V", "NR-7C1E", "NR-2D4W", "NR-6P8Y", "NR-8L9Z"
+    ];
+
+    function gerarTodosQRs() {
+      const container = document.getElementById('qrContainer');
+      const baseUrl = document.getElementById('baseUrlInput').value.trim();
+      container.innerHTML = '';
+
+      for (let i = 1; i <= 60; i++) {
+        const idPad = String(i).padStart(3, '0');
+        const code = secretCodes[i - 1];
+        const targetUrl = `${baseUrl}?unlock=${code}`;
+        
+        const qrApi = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(targetUrl)}&margin=1`;
+
+        const card = document.createElement('div');
+        card.className = 'qr-card';
+        card.innerHTML = `
+          <div class="qr-title">NEXUS GENERATIONS</div>
+          <div class="qr-sub">HERÓIS DE NOVA ROMA</div>
+          <img src="${qrApi}" class="qr-img" alt="QR Code ${code}">
+          <div class="qr-id">CARD #${idPad}</div>
+          <div class="qr-secret-key">CÓDIGO: ${code}</div>
+        `;
+        container.appendChild(card);
+      }
+    }
+
+    gerarTodosQRs();
+  </script>
+</body>
+</html>

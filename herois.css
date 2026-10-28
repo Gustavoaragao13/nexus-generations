@@ -1,0 +1,939 @@
+/* ==========================================================
+   ESTILOS GERAIS: HERÓIS DE NOVA ROMA
+   ========================================================== */
+.nova-roma-body {
+  background: #04030a;
+  color: #fff;
+  font-family: 'Rajdhani', sans-serif;
+  margin: 0;
+  padding-bottom: 4rem;
+  min-height: 100vh;
+}
+
+/* ==========================================================
+   ANIMAÇÕES HOLOGRÁFICAS FOIL & PRISMA
+   ========================================================== */
+@keyframes holoFoilShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes holographicBorder {
+  0%, 100% {
+    border-color: rgba(0, 242, 254, 0.4);
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.2), inset 0 0 15px rgba(0, 242, 254, 0.05);
+  }
+  33% {
+    border-color: rgba(255, 0, 127, 0.45);
+    box-shadow: 0 0 18px rgba(255, 0, 127, 0.25), inset 0 0 15px rgba(255, 0, 127, 0.08);
+  }
+  66% {
+    border-color: rgba(255, 215, 0, 0.45);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.25), inset 0 0 15px rgba(255, 215, 0, 0.08);
+  }
+}
+
+@keyframes laserScan {
+  0% { top: 6%; opacity: 0.7; }
+  50% { top: 92%; opacity: 1; }
+  100% { top: 6%; opacity: 0.7; }
+}
+
+@keyframes holoSheenDiagonal {
+  0% {
+    transform: translate(-100%, -100%) rotate(35deg);
+  }
+  30%, 100% {
+    transform: translate(200%, 200%) rotate(35deg);
+  }
+}
+
+.glow-btn {
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: 0 0 12px rgba(0, 242, 254, 0.3);
+}
+
+.glow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.7);
+}
+
+/* ==========================================================
+   MODAL DE ENTRADA HOLOGRÁFICA
+   ========================================================== */
+.nr-auth-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 3, 10, 0.95);
+  backdrop-filter: blur(16px);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.nr-auth-card {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: #080614;
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 35px rgba(0, 242, 254, 0.2);
+}
+
+.nr-card-bg-art {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.22;
+  filter: saturate(1.4) contrast(1.2);
+}
+
+.nr-card-overlay-fx {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(8, 6, 20, 0.6) 0%, rgba(4, 3, 10, 0.95) 100%);
+}
+
+.nr-auth-content {
+  position: relative;
+  z-index: 2;
+  padding: 2.2rem 1.8rem;
+}
+
+.nr-brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  background: rgba(0, 242, 254, 0.08);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 242, 254, 0.2);
+}
+
+.nr-auth-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 0.8rem 0 0.3rem;
+  letter-spacing: 1px;
+}
+
+.nr-auth-subtitle {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.nr-prompt-box .nr-btn-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+/* ==========================================================
+   CABEÇALHO & PROFILE MINIMALISTA
+   ========================================================== */
+.nr-main-header {
+  background: rgba(8, 6, 20, 0.85);
+  border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+  padding: 1.2rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+
+.nr-header-container {
+  max-width: 1350px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+
+.nr-header-title h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.35rem;
+  margin: 0;
+  letter-spacing: 1.5px;
+}
+
+.nr-header-title h1 span { color: var(--cyan, #00f2fe); }
+
+.nr-tracker-badge {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.82rem;
+  color: #94a3b8;
+}
+
+.nr-tracker-badge strong { color: #ff007f; }
+
+.nr-back-link {
+  color: #00f2fe;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s ease;
+}
+
+.nr-back-link:hover {
+  transform: translateX(-3px);
+}
+
+.nr-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+/* MINI PERFIL MINIMALISTA */
+.nr-user-miniprofile {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 11, 30, 0.8);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  padding: 4px 10px 4px 6px;
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease;
+}
+
+.nr-user-miniprofile:hover {
+  border-color: rgba(0, 242, 254, 0.6);
+}
+
+.miniprofile-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff007f, #00f2fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 800;
+  font-size: 0.75rem;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 6px rgba(0, 242, 254, 0.4);
+}
+
+.miniprofile-info {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.miniprofile-tag {
+  font-size: 0.6rem;
+  color: #00f2fe;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.miniprofile-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #cbd5e1;
+  max-width: 110px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.miniprofile-logout {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0 2px 0 6px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.miniprofile-logout:hover {
+  color: #ff007f;
+  transform: scale(1.15);
+}
+
+/* NAVEGAÇÃO DE SAGAS */
+.nr-sagas-nav {
+  max-width: 1350px;
+  margin: 1rem auto 0;
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  padding-right: 1.5rem;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nr-sagas-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.nr-saga-tab {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #94a3b8;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.nr-saga-tab.active {
+  background: rgba(0, 242, 254, 0.12);
+  border-color: #00f2fe;
+  color: #00f2fe;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+}
+
+.nr-saga-tab.locked-saga {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ==========================================================
+   GRADE DOS 60 CARDS: EFEITO HOLOGRÁFICO FOIL COMPLETO
+   ========================================================== */
+.nr-grid-container {
+  max-width: 1350px;
+  margin: 2.5rem auto;
+  padding: 0 1.5rem;
+}
+
+.nr-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
+  gap: 2.2rem;
+}
+
+/* CARD TÁTICO HOLOGRÁFICO */
+.hero-card {
+  background: #090812;
+  border: 1.5px solid rgba(0, 242, 254, 0.3);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+  position: relative;
+  animation: holographicBorder 6s infinite linear;
+}
+
+.hero-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0, 242, 254, 0.35), 0 0 25px rgba(255, 0, 127, 0.25);
+  border-color: #00f2fe;
+}
+
+/* Camada Foil Holográfica Superior */
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(0, 242, 254, 0.12) 20%,
+    rgba(255, 0, 127, 0.15) 35%,
+    rgba(255, 215, 0, 0.12) 50%,
+    rgba(0, 242, 254, 0.12) 65%,
+    transparent 85%
+  );
+  background-size: 250% 250%;
+  animation: holoFoilShift 7s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 5;
+  mix-blend-mode: color-dodge;
+  opacity: 0.65;
+  transition: opacity 0.3s ease;
+}
+
+.hero-card:hover::after {
+  opacity: 1;
+}
+
+/* Faixa de Luz Diagonal */
+.hero-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 45%,
+    rgba(255, 255, 255, 0.28) 50%,
+    transparent 55%
+  );
+  transform: translate(-100%, -100%) rotate(35deg);
+  pointer-events: none;
+  z-index: 6;
+  transition: transform 0.8s ease;
+}
+
+.hero-card:hover::before {
+  animation: holoSheenDiagonal 1.6s ease-in-out;
+}
+
+/* VISOR SUPERIOR DO CARD */
+.hero-card-viewport {
+  position: relative;
+  height: 380px;
+  background: #04030a;
+  overflow: hidden;
+}
+
+.view-panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+  animation: fadeIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.view-panel.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.96); filter: blur(4px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+.view-photo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-card:hover .view-photo-img {
+  transform: scale(1.05);
+}
+
+.view-text-panel {
+  padding: 1.4rem;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding-right: 3.6rem;
+  background: rgba(8, 6, 20, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.view-panel-title {
+  font-family: 'Orbitron', sans-serif;
+  color: #00f2fe;
+  font-size: 0.92rem;
+  margin-top: 0;
+  margin-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(0, 242, 254, 0.3);
+  padding-bottom: 0.4rem;
+  letter-spacing: 0.8px;
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.5);
+}
+
+.tactic-field {
+  margin-bottom: 0.75rem;
+}
+
+.tactic-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ff007f;
+  margin-bottom: 0.15rem;
+}
+
+.tactic-val {
+  font-size: 0.88rem;
+  color: #f1f5f9;
+}
+
+.history-text {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+/* BOTÕES LATERAIS DE TROCA DE TELA */
+.hero-tab-dock {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.dock-btn {
+  width: 38px;
+  height: 38px;
+  background: rgba(8, 6, 20, 0.88);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  border-radius: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.dock-btn.active, .dock-btn:hover {
+  background: #00f2fe;
+  color: #04030a;
+  box-shadow: 0 0 16px rgba(0, 242, 254, 0.9);
+  transform: scale(1.1);
+  border-color: #fff;
+}
+
+/* RODAPÉ DO CARD */
+.hero-footer-data {
+  padding: 1.1rem 1.2rem;
+  background: #07060f;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  position: relative;
+  z-index: 7;
+}
+
+.hero-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.hero-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #00f2fe;
+  margin: 0;
+  letter-spacing: 0.5px;
+  line-height: 1.25;
+  word-break: normal;
+  overflow-wrap: break-word;
+  text-shadow: 0 0 12px rgba(0, 242, 254, 0.5);
+  flex: 1;
+}
+
+.hero-badge-tag {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.hero-badge-tag.variant-casual {
+  background: #ff007f;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 0, 127, 0.6);
+}
+
+.hero-badge-tag.variant-heroico {
+  background: #00f2fe;
+  color: #04030a;
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+.hero-badge-tag.variant-divino {
+  background: #ffd700;
+  color: #04030a;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+}
+
+.hero-sub-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.hero-rank-tag {
+  color: #00f2fe;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+}
+
+.hero-lineage-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #ff007f;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 8px rgba(255, 0, 127, 0.4);
+}
+
+.hero-stars {
+  color: #ff007f;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  margin-bottom: 0.2rem;
+}
+
+.hero-quote {
+  font-style: italic;
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================================
+   ESTADO BLOQUEADO: SILHUETA ESCURA & BLUR
+   ========================================================== */
+.hero-card.locked .view-photo-img {
+  filter: brightness(0) contrast(2) drop-shadow(0 0 6px rgba(0, 242, 254, 0.35));
+}
+
+.hero-card.locked::after {
+  opacity: 0.15;
+}
+
+.hero-card.locked .hero-name,
+.hero-card.locked .tactic-val,
+.hero-card.locked .history-text {
+  filter: blur(5px);
+  user-select: none;
+}
+
+.hero-card.locked .dock-btn {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.hero-card.locked .hero-quote {
+  filter: blur(3px);
+}
+
+/* ==========================================================
+   MODAL DO SCANNER DE CÂMERA
+   ========================================================== */
+.nr-scanner-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 3, 10, 0.94);
+  backdrop-filter: blur(12px);
+  z-index: 9999999;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.nr-scanner-box {
+  background: #080614;
+  border: 1px solid var(--cyan, #00f2fe);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 440px;
+  padding: 1.5rem;
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nr-scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-close-scanner {
+  background: none;
+  border: none;
+  color: #ff007f;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-close-scanner:hover {
+  transform: scale(1.15);
+}
+
+.scanner-viewfinder {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px dashed rgba(0, 242, 254, 0.4);
+}
+
+#scannerVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+#scannerCanvas {
+  display: none;
+}
+
+.scanner-laser-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f2fe, #ff007f, transparent) !important;
+  box-shadow: 0 0 8px #00f2fe;
+  animation: laserScan 2s infinite ease-in-out;
+  pointer-events: none !important;
+  z-index: 10;
+}
+
+.scanner-tip {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.82rem;
+  margin: 0;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+/* ==========================================================
+   SCROLLBAR CYBERPUNK
+   ========================================================== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #04030a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 242, 254, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cyan, #00f2fe);
+  box-shadow: 0 0 10px rgba(0, 242, 254, 0.8);
+}
+
+/* ==========================================================
+   RESPONSIVIDADE MOBILE: OPÇÃO 2 (CARROSSEL HORIZONTAL TÁTIL)
+   ========================================================== */
+
+/* Tablets (Abaixo de 992px) */
+@media (max-width: 992px) {
+  .nr-main-header {
+    padding: 1rem 1.2rem;
+  }
+
+  .nr-header-container {
+    justify-content: center;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .nr-header-actions {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+/* Smartphones (Abaixo de 768px) */
+@media (max-width: 768px) {
+  .nr-main-header {
+    padding: 0.8rem 1rem;
+  }
+
+  .nr-header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nr-back-link {
+    align-self: flex-start;
+    font-size: 0.8rem;
+  }
+
+  .nr-header-title h1 {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .nr-tracker-badge {
+    font-size: 0.75rem;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .nr-header-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .btn-cyan-small {
+    padding: 6px 10px;
+    font-size: 0.72rem;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nr-user-miniprofile {
+    padding: 3px 8px 3px 4px;
+  }
+
+  .miniprofile-name {
+    max-width: 85px;
+    font-size: 0.72rem;
+  }
+
+  .nr-saga-tab {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.65rem;
+  }
+
+  /* ESTRUTURA DO CARROSSEL HORIZONTAL */
+  .nr-grid-container {
+    margin: 1.2rem 0;
+    padding: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .nr-cards-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    gap: 1rem !important;
+    padding: 0.8rem 1.2rem 1.8rem !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .nr-cards-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  /* CADA CARD VIRA UMA CARTA FÍSICA NO CARROSSEL */
+  .hero-card {
+    min-width: 80vw !important;
+    max-width: 80vw !important;
+    flex: 0 0 80vw !important;
+    scroll-snap-align: center !important;
+    scroll-snap-stop: always !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-card-viewport {
+    height: 360px !important;
+  }
+
+  .hero-tab-dock {
+    right: 8px;
+    gap: 6px;
+  }
+
+  .dock-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  .view-text-panel {
+    padding: 1.1rem 0.9rem;
+    padding-right: 3.2rem;
+  }
+
+  .hero-footer-data {
+    padding: 1rem;
+  }
+
+  .hero-name {
+    font-size: 0.95rem;
+  }
+
+  .nr-auth-card,
+  .nr-scanner-box {
+    width: 95vw;
+    max-width: 95vw;
+    padding: 1.1rem;
+    margin: 0 auto;
+  }
+
+  .scanner-viewfinder {
+    height: 220px;
+  }
+}
+
+/* Telas Pequenas (Abaixo de 400px) */
+@media (max-width: 400px) {
+  .hero-card {
+    min-width: 84vw !important;
+    max-width: 84vw !important;
+    flex: 0 0 84vw !important;
+  }
+
+  .hero-card-viewport {
+    height: 330px !important;
+  }
+
+  .nr-header-title h1 {
+    font-size: 1.05rem;
+  }
+}

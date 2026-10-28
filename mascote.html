@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Generations // Media Kit & Wallpapers</title>
+
+  <!-- Tipografias Cyberpunk & Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="mascote.css">
+</head>
+<body class="pyxel-nexus-body">
+
+  <!-- CABEÇALHO LIMPO (SEM PERFIL KLEIN, SEM SINO, SEM CHAT) -->
+  <header class="pyxel-header">
+    <div class="pyxel-nav-wrap">
+      <a href="index.html" class="pyxel-logo">
+        <span class="logo-box"><i class="bi bi-shield-shaded"></i></span>
+        <span class="logo-text">NEXUS<span>GEN</span></span>
+      </a>
+
+      <!-- MENU DE CATEGORIAS -->
+      <nav class="pyxel-nav-menu">
+        <button type="button" class="nav-cat-btn active" data-cat="all">TODOS</button>
+        <button type="button" class="nav-cat-btn" data-cat="mascote">MASCOTE</button>
+        <button type="button" class="nav-cat-btn" data-cat="logo">LOGO</button>
+        <button type="button" class="nav-cat-btn" data-cat="wallpapers">WALLPAPERS</button>
+        <button type="button" class="nav-cat-btn" data-cat="mobile">MOBILE</button>
+      </nav>
+
+      <!-- BOTÃO DIREITO: DOWNLOAD PACK -->
+      <div class="pyxel-header-actions">
+        <a href="mascote.jpg" download="Nexus_MediaKit_Pack.jpg" class="btn-pack-head glow-btn">
+          <i class="bi bi-cloud-arrow-down-fill"></i> BAIXAR PACK OFICIAL
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CORPO PRINCIPAL COM O HERO E A COLUNA LATERAL -->
+  <main class="pyxel-hero-section">
+    
+    <!-- LADO ESQUERDO: TEXTOS & APRESENTAÇÃO -->
+    <div class="pyxel-hero-content">
+      <span class="cyber-sub-badge">
+        <i class="bi bi-shield-fill-check cyan-text"></i> ACERVO OFICIAL // NEXUS GENERATIONS
+      </span>
+      <h1 class="pyxel-main-title">
+        ENTRE NO UNIVERSO DO <span>NOSSO MASCOTE</span>
+      </h1>
+      <p class="pyxel-lead-text">
+        Explore o media kit completo, com mais de 150 ilustrações em alta definição, renders com fundo transparente, logomarcas oficiais e wallpapers para celulares e monitores 4K.
+      </p>
+
+      <div class="pyxel-stats-strip">
+        <div class="stat-cell">
+          <strong>150+</strong>
+          <span>ARQUIVOS 4K</span>
+        </div>
+        <div class="stat-sep">/</div>
+        <div class="stat-cell">
+          <strong>ALPHA</strong>
+          <span>PNG TRANSPARENTE</span>
+        </div>
+        <div class="stat-sep">/</div>
+        <div class="stat-cell">
+          <strong>RGB</strong>
+          <span>NEON READY</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LADO DIREITO: ESTEIRA CONTÍNUA QUE SOBE SUAVEMENTE (SOME NO MOBILE) -->
+    <div class="pyxel-marquee-wrapper" id="marqueeWrapper">
+      <div class="marquee-track" id="marqueeTrack">
+        <!-- Itens gerados dinamicamente via JS com loop infinito -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==========================================================
+       SEÇÃO: WALLPAPERS EM DESTAQUE (4 CARDS DE EXIBIÇÃO)
+       ========================================================== -->
+  <section class="pyxel-wallpapers-section">
+    <div class="wallpapers-header-row">
+      <div class="wallpapers-header-title">
+        <span class="cyber-sub-badge"><i class="bi bi-display cyan-text"></i> ACERVO OFICIAL // 4K ULTRA HD</span>
+        <h2>WALLPAPERS EM <span>DESTAQUE</span></h2>
+      </div>
+      <a href="#mascotCardsGrid" class="btn-see-all-wallpapers" id="btnSeeAllWallpapers">
+        VER TODOS OS 150+ <i class="bi bi-arrow-right"></i>
+      </a>
+    </div>
+
+    <!-- GRADE DE 4 CARDS VERTICAIS ESTILO PYXEL -->
+    <div class="pyxel-showcase-grid">
+
+      <!-- CARD 1 -->
+      <div class="showcase-card cyber-hud-corners">
+        <div class="showcase-thumb-wrap">
+          <img src="mascote.jpg" alt="Wallpaper 01" class="showcase-img">
+          <div class="showcase-overlay-fx"></div>
+          <span class="showcase-badge-top"><i class="bi bi-star-fill"></i> 4K ULTRA</span>
+        </div>
+        <div class="showcase-card-data">
+          <h3>Kitsunine // Cyber Hunter</h3>
+          <p class="showcase-subtag">WALLPAPER | 3840x2160 | PC & TV</p>
+          <div class="showcase-stats-row">
+            <span class="showcase-rating"><i class="bi bi-star-fill"></i> 5.0</span>
+            <span class="showcase-downloads"><i class="bi bi-download"></i> 150K Downloads</span>
+          </div>
+          <a href="mascote.jpg" download="Nexus_Wallpaper_01.jpg" class="btn-showcase-download">
+            <i class="bi bi-cloud-arrow-down-fill"></i> BAIXAR WALLPAPER
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="showcase-card cyber-hud-corners">
+        <div class="showcase-thumb-wrap">
+          <img src="mascote.jpg" alt="Wallpaper 02" class="showcase-img" style="filter: hue-rotate(45deg);">
+          <div class="showcase-overlay-fx"></div>
+          <span class="showcase-badge-top"><i class="bi bi-star-fill"></i> OLED READY</span>
+        </div>
+        <div class="showcase-card-data">
+          <h3>Protocolo Neon // Nightfall</h3>
+          <p class="showcase-subtag">WALLPAPER | 2560x1440 | 144Hz</p>
+          <div class="showcase-stats-row">
+            <span class="showcase-rating"><i class="bi bi-star-fill"></i> 4.9</span>
+            <span class="showcase-downloads"><i class="bi bi-download"></i> 98K Downloads</span>
+          </div>
+          <a href="mascote.jpg" download="Nexus_Wallpaper_02.jpg" class="btn-showcase-download">
+            <i class="bi bi-cloud-arrow-down-fill"></i> BAIXAR WALLPAPER
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="showcase-card cyber-hud-corners">
+        <div class="showcase-thumb-wrap">
+          <img src="mascote.jpg" alt="Wallpaper 03" class="showcase-img" style="filter: contrast(1.2) brightness(0.9);">
+          <div class="showcase-overlay-fx"></div>
+          <span class="showcase-badge-top"><i class="bi bi-star-fill"></i> CYBERPUNK</span>
+        </div>
+        <div class="showcase-card-data">
+          <h3>Arena Nexus // Horizon 2027</h3>
+          <p class="showcase-subtag">WALLPAPER | 3840x2160 | DUAL SCREEN</p>
+          <div class="showcase-stats-row">
+            <span class="showcase-rating"><i class="bi bi-star-fill"></i> 5.0</span>
+            <span class="showcase-downloads"><i class="bi bi-download"></i> 210K Downloads</span>
+          </div>
+          <a href="mascote.jpg" download="Nexus_Wallpaper_03.jpg" class="btn-showcase-download">
+            <i class="bi bi-cloud-arrow-down-fill"></i> BAIXAR WALLPAPER
+          </a>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="showcase-card cyber-hud-corners">
+        <div class="showcase-thumb-wrap">
+          <img src="mascote.jpg" alt="Wallpaper 04" class="showcase-img" style="filter: saturate(1.4);">
+          <div class="showcase-overlay-fx"></div>
+          <span class="showcase-badge-top"><i class="bi bi-star-fill"></i> GOLD EDITION</span>
+        </div>
+        <div class="showcase-card-data">
+          <h3>Kitsunine // Divindade Solar</h3>
+          <p class="showcase-subtag">WALLPAPER | 4K HDR | CINEMATIC</p>
+          <div class="showcase-stats-row">
+            <span class="showcase-rating"><i class="bi bi-star-fill"></i> 4.9</span>
+            <span class="showcase-downloads"><i class="bi bi-download"></i> 125K Downloads</span>
+          </div>
+          <a href="mascote.jpg" download="Nexus_Wallpaper_04.jpg" class="btn-showcase-download">
+            <i class="bi bi-cloud-arrow-down-fill"></i> BAIXAR WALLPAPER
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script src="mascote-data.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.getElementById('marqueeTrack');
+      
+      // Fallback caso mascote-data.js ainda esteja vazio
+      const assetsList = (typeof mediaAssets !== 'undefined' && mediaAssets.length > 0)
+        ? mediaAssets
+        : [
+            { titulo: "Kitsunine // Key Visual", categoria: "mascote", arquivo: "mascote.jpg", resolucao: "4K // 3840x2160", formato: "JPG" },
+            { titulo: "Cyber Kitsune // Mobile", categoria: "mobile", arquivo: "mascote.jpg", resolucao: "1080x1920", formato: "JPG" },
+            { titulo: "Render Alpha // Sem Fundo", categoria: "mascote", arquivo: "mascote.jpg", resolucao: "PNG // 300 DPI", formato: "PNG" },
+            { titulo: "Logo Nexus // Neon Ciano", categoria: "logo", arquivo: "mascote.jpg", resolucao: "VETOR // 4K", formato: "PNG" },
+            { titulo: "Arena Nexus // Wallpaper Dark", categoria: "wallpapers", arquivo: "mascote.jpg", resolucao: "2K // 2560x1440", formato: "JPG" }
+          ];
+
+      function buildMarquee(filteredCat = 'all') {
+        const items = assetsList.filter(item => filteredCat === 'all' || item.categoria === filteredCat);
+        const displayItems = items.length > 0 ? items : assetsList;
+
+        // Duplica a lista para que a animação infinita (-50%) nunca fique em branco
+        const fullTrackList = [...displayItems, ...displayItems, ...displayItems];
+
+        track.innerHTML = fullTrackList.map(item => `
+          <div class="marquee-card">
+            <div class="marquee-thumb">
+              <img src="${item.arquivo}" alt="${item.titulo}" onerror="this.src='mascote.jpg'">
+              <span class="marquee-badge"><i class="bi bi-star-fill"></i> ${item.formato || 'HD'}</span>
+            </div>
+            <div class="marquee-info">
+              <h4>${item.titulo}</h4>
+              <a href="${item.arquivo}" download="${item.titulo.replace(/[^a-zA-Z0-9_-]/g, '_')}.jpg" class="marquee-download-btn">
+                <i class="bi bi-download"></i> BAIXAR
+              </a>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      buildMarquee();
+
+      // Filtro no menu superior
+      const navButtons = document.querySelectorAll('.nav-cat-btn');
+      navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          navButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          buildMarquee(btn.getAttribute('data-cat'));
+        });
+      });
+    });
+  </script>
+</body>
+</html>

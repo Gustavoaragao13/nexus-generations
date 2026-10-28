@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexus Generations</title>
+
+  <!-- Fontes Gamer / Cyberpunk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Rajdhani:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Blindagem direta do Modal Jurídico para NUNCA vazar na página */
+    .legal-modal-overlay {
+      display: none;
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      background: rgba(4, 3, 10, 0.88) !important;
+      backdrop-filter: blur(14px) !important;
+      z-index: 999999 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 1.5rem !important;
+    }
+    .legal-modal-overlay.active {
+      display: flex !important;
+    }
+
+    /* Formatação Integrada do Player do YouTube */
+    .video-iframe-wrapper {
+      position: relative !important;
+      width: 100% !important;
+      padding-bottom: 56.25% !important; /* 16:9 aspect ratio */
+      height: 0 !important;
+      overflow: hidden !important;
+      border-radius: 16px !important;
+      background: #000 !important;
+      border: 1px solid rgba(0, 242, 254, 0.3) !important;
+      box-shadow: 0 0 25px rgba(0, 242, 254, 0.15) !important;
+      margin: 1rem 0 !important;
+    }
+    .video-iframe-wrapper iframe {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      border: none !important;
+    }
+    .main-player-card {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      padding: 1.5rem !important;
+    }
+
+    /* Alinhamento perfeito do verso dos cards de torneios */
+    .card-tournament-back {
+      padding: 1.5rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      box-sizing: border-box !important;
+    }
+    .back-content {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
+    }
+    .back-title {
+      font-family: 'Orbitron', sans-serif !important;
+      font-size: 1.25rem !important;
+      font-weight: 800 !important;
+      color: #fff !important;
+      margin: 0 !important;
+      line-height: 1.3 !important;
+    }
+    .back-description {
+      font-size: 0.88rem !important;
+      line-height: 1.5 !important;
+      color: #94a3b8 !important;
+      margin: 0 !important;
+    }
+    .back-event-specs {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.5rem !important;
+      background: rgba(0, 0, 0, 0.3) !important;
+      padding: 0.75rem 1rem !important;
+      border-radius: 12px !important;
+      border: 1px solid rgba(0, 242, 254, 0.15) !important;
+    }
+    .spec-row {
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      font-size: 0.88rem !important;
+      gap: 0.5rem !important;
+    }
+    .spec-label {
+      color: #94a3b8 !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      white-space: nowrap !important;
+    }
+    .spec-value {
+      color: var(--cyan) !important;
+      font-weight: 700 !important;
+      text-align: right !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==========================================================
+       TELA DE CARREGAMENTO (PRELOADER CYBERPUNK)
+       ========================================================== -->
+  <div class="cyber-preloader" id="preloader">
+    <div class="preloader-content">
+      <div class="preloader-logo">NEX<span>US</span></div>
+      <div class="preloader-bar-track">
+        <div class="preloader-bar-fill"></div>
+      </div>
+      <div class="preloader-status">CARREGANDO DADOS DO SISTEMA...</div>
+    </div>
+  </div>
+
+  <!-- Blindagem Direta no HTML: destrói o preloader mesmo se o JS der soluço -->
+  <script>
+    setTimeout(function() {
+      var p = document.getElementById('preloader');
+      if (p) p.classList.add('fade-out');
+    }, 1000);
+  </script>
+
+  <!-- Scanlines CRT -->
+  <div class="cyber-scanlines"></div>
+
+  <!-- Bolhas Neon Flutuantes ao Fundo -->
+  <div class="bubbles-container">
+    <span style="--i:11; --size:8px; --color:#00f2fe;"></span>
+    <span style="--i:12; --size:14px; --color:#ff007f;"></span>
+    <span style="--i:24; --size:6px; --color:#00f2fe;"></span>
+    <span style="--i:10; --size:10px; --color:#7928ca;"></span>
+    <span style="--i:14; --size:12px; --color:#00f2fe;"></span>
+    <span style="--i:23; --size:16px; --color:#ff007f;"></span>
+    <span style="--i:18; --size:6px; --color:#00f2fe;"></span>
+    <span style="--i:16; --size:10px; --color:#7928ca;"></span>
+    <span style="--i:19; --size:14px; --color:#00f2fe;"></span>
+    <span style="--i:20; --size:8px; --color:#ff007f;"></span>
+    <span style="--i:22; --size:12px; --color:#00f2fe;"></span>
+    <span style="--i:25; --size:7px; --color:#7928ca;"></span>
+    <span style="--i:15; --size:15px; --color:#00f2fe;"></span>
+  </div>
+
+  <!-- Navbar Fixa com Logotipo em Imagem (SEM BOTÃO DE GALERIA) -->
+  <header class="header" id="navbar">
+    <div class="logo">
+      <div class="logo-icon">
+        <img src="mascoteicon.jpg" alt="Logo Nexus" onerror="this.src='mascote.jpg'">
+      </div>
+      <span class="logo-text">NEXUS<span>GEN</span></span>
+    </div>
+    <nav class="nav-menu">
+      <a href="#inicio" class="cyber-link active" data-text="INÍCIO">INÍCIO</a>
+      <a href="#sobre" class="cyber-link" data-text="SOBRE">SOBRE</a>
+      <a href="#torneios" class="cyber-link" data-text="TORNEIOS">TORNEIOS</a>
+      <a href="#videos" class="cyber-link" data-text="VIDEOS">VIDEOS</a>
+      <a href="#parceiros" class="cyber-link" data-text="PARCEIROS">PARCEIROS</a>
+      <a href="#ingressos" class="cyber-link" data-text="INGRESSOS">INGRESSOS</a>
+      <a href="#programacao" class="cyber-link" data-text="NOTÍCIAS">NOTÍCIAS</a>
+      <a href="mascote.html" class="cyber-link" data-text="MASCOTE">MASCOTE</a>
+    </nav>
+    <div class="header-action" id="navAuthArea">
+      <!-- Estado Inicial: Deslogado -->
+      <button type="button" class="btn-glow-cyan" onclick="openAuthModal('register')">
+        <i class="bi bi-lightning-charge-fill"></i> SE INSCREVA
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="hero-container" id="inicio">
+    <!-- COLUNA 1: TEXTOS (ESQUERDA) -->
+    <div class="hero-left">
+      <div class="status-badge">
+        <span class="dot"></span> PRIMEIRA TEMPORADA
+      </div>
+      <h1 class="glitch-title">
+        Entre<br>
+        <span class="cyan-text cyber-flicker">No Mundo</span><br>
+        <span class="pink-text">Geek</span>
+      </h1>
+      <p class="description">
+        O refúgio seguro onde todas as suas paixões se encontram e você nunca é o esquisito da turma.
+      </p>
+      <div class="button-group">
+        <a href="#torneios" class="btn-cyan"><i class="bi bi-trophy-fill"></i> TORNEIOS</a>
+        <a href="https://www.instagram.com/nexus_gen_events?utm_source=ig_web_button_share_sheet&cplk=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="btn-outline-cyan"><i class="bi bi-controller"></i> REDE SOCIAL</a>
+      </div>
+      <div class="watch-live-box">
+        <a href="https://www.youtube.com/@Nexus_Gen_Events" target="_blank" rel="noopener noreferrer" class="btn-watch-live"><i class="bi bi-record-circle"></i> LIVES</a>
+      </div>
+    </div> <!-- Fechamento correto da hero-left -->
+
+    <!-- COLUNA 2: Card do Mascote com Contagem Regressiva (DIREITA) -->
+    <div class="hero-right">
+      <div class="feature-card cyber-hud-corners">
+        <div class="mascot-full-wrapper">
+          <img src="mascote.jpg" alt="Mascote Nexus" class="mascot-full-img" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=NexusMascot'">
+          <div class="mascot-gradient-overlay"></div>
+        </div>
+
+        <div class="card-info-floating">
+          <div class="countdown-badge">
+            <span class="dot-pulse"></span> CONTAGEM REGRESSIVA
+          </div>
+          <h3>EVENTO NEXUS 2027</h3>
+          <p class="event-target-date"><i class="bi bi-calendar4-event"></i> 25 DE ABRIL DE 2027</p>
+
+          <div class="countdown-timer" id="countdown-timer">
+            <div class="timer-box">
+              <span class="timer-num" id="days">00</span>
+              <span class="timer-lbl">DIAS</span>
+            </div>
+            <div class="timer-sep">:</div>
+            <div class="timer-box">
+              <span class="timer-num" id="hours">00</span>
+              <span class="timer-lbl">HORAS</span>
+            </div>
+            <div class="timer-sep">:</div>
+            <div class="timer-box">
+              <span class="timer-num" id="minutes">00</span>
+              <span class="timer-lbl">MIN</span>
+            </div>
+            <div class="timer-sep">:</div>
+            <div class="timer-box">
+              <span class="timer-num" id="seconds">00</span>
+              <span class="timer-lbl">SEG</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Indicador de Rolagem -->
+  <div class="scroll-indicator">
+    <div class="mouse-icon">
+      <div class="wheel"></div>
+    </div>
+    <span>SCROLL</span>
+  </div>
+
+  <!-- SEÇÃO SOBRE NÓS -->
+  <section class="about-section" id="sobre">
+    <div class="about-grid">
+      <!-- Card Visual com Imagem Completa e Efeito Glitch -->
+      <div class="about-visual-wrapper">
+        <div class="about-main-card cyber-hud-corners cyber-card-glitch">
+          <img src="mascote2.jpg" alt="Nexus Universe" class="about-card-img" onerror="this.src='mascote.jpg'">
+          <div class="about-card-overlay"></div>
+          <div class="about-card-scanline"></div>
+        </div>
+      </div>
+
+      <div class="about-content">
+        <div class="story-tag">NOSSA HISTÓRIA</div>
+        <h2 class="about-title">
+          Games, animes e histórias, <span class="cyan-text">o seu multiverso em um só lugar</span>
+        </h2>
+        <p class="about-text">
+          O que nasceu como um rascunho despretensioso entre partidas online virou uma missão audaciosa: conectar milhares de pessoas que vibram ao derrotar um chefe impossível, devoram volumes de mangás ou choram no fim de um bom livro.
+        </p>
+        <p class="about-text text-secondary">
+          Não importava a idade ou a plataforma; a meta era erguer um espaço onde todo fã pudesse ser protagonista. Foi dessa faísca compartilhada que surgiu o NexusGen. Um portal feito por quem vive a cultura pop na veia, pronto para transformar a paixão de quatro sonhadores no ponto de encontro de uma geração inteira.
+        </p>
+
+        <!-- Grade dos 4 Pilares Geek -->
+        <div class="features-grid">
+          <div class="feature-item cyber-hud-corners">
+            <div class="feat-icon-wrap"><i class="bi bi-controller"></i></div>
+            <div class="feat-details">
+              <h4>Mundo Gamer</h4>
+              <p>Torneios eletrizantes, lançamentos e desafios para todos os níveis</p>
+            </div>
+          </div>
+
+          <div class="feature-item cyber-hud-corners">
+            <div class="feat-icon-wrap"><i class="bi bi-film"></i></div>
+            <div class="feat-details">
+              <h4>Cine & Séries</h4>
+              <p>Maratonas épicas, debates de teorias e os maiores clássicos das telonas</p>
+            </div>
+          </div>
+
+          <div class="feature-item cyber-hud-corners">
+            <div class="feat-icon-wrap"><i class="bi bi-book-half"></i></div>
+            <div class="feat-details">
+              <h4>Mundo Literário</h4>
+              <p>Fantasias marcantes, HQs lendárias e histórias que moldam nossa imaginação</p>
+            </div>
+          </div>
+
+          <div class="feature-item cyber-hud-corners">
+            <div class="feat-icon-wrap"><i class="bi bi-stars"></i></div>
+            <div class="feat-details">
+              <h4>Animes & Mangás</h4>
+              <p>Do shonen ao clássico: cultura otaku, painéis e universos sem limites</p>
+            </div>
+          </div>
+        </div>
+
+        <a href="#ingressos" class="btn-cyan btn-explore">
+          <i class="bi bi-compass"></i> EXPLORAR UNIVERSOS
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SEÇÃO TORNEIOS (8 MODALIDADES COM FLIP 3D // UTICKET)
+       ========================================================== -->
+  <section class="tournaments-section" id="torneios">
+    <div class="section-container">
+      <div class="tournaments-header">
+        <div class="header-texts">
+          <h2 class="section-title">Torneios em <span class="cyan-text cyber-flicker">Destaque</span></h2>
+          <p class="section-subtitle">Descubra as 8 arenas oficiais da Nexus, desafie os melhores competidores e dispute o troféu da glória.</p>
+        </div>
+      </div>
+
+      <div class="tournaments-grid">
+        <!-- 1: Naruto Storm 4 -->
+        <div class="flip-card" id="card-naruto">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote3.jpg" alt="Naruto Storm 4" class="card-thumb-bg">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-naruto">
+                <div class="chakra-clash">
+                  <div class="rasengan"></div>
+                  <div class="clash-spark"></div>
+                  <div class="chidori"></div>
+                </div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag orange-tag">PLAYSTATION 5</span>
+                <h3 class="game-title">Naruto Storm 4</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Arena Ninja</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> ELIMINATÓRIAS</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Exame Chunnin Nexus</h4>
+                <p class="back-description">Combates intensos 1v1 no formato fase de grupos e mata-mata, apenas pura habilidade e troca de jutsus no tempo certo.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-controller"></i> Modo:</span><span class="spec-value">1v1 Melhor de 3</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">32 Lutadores</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Troféu + R$ 100</span></div>
+                </div>
+              </div>
+              <a href="https://forms.gle/9sRdAYjznyPCim9E7" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-ticket-perforated-fill"></i> INSCREVER-SE
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2: FIFA 27 -->
+        <div class="flip-card" id="card-fifa">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote4.jpg" alt="FIFA 27" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-fifa">
+                <div class="cyber-ball">⚽</div>
+                <div class="goal-net-burst"></div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag emerald-tag">PLAYSTATION 5</span>
+                <h3 class="game-title">EA FC / FIFA 27</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Copa Pro Clubs</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> TORNEIO</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Nexus Champions League</h4>
+                <p class="back-description">Disputa no gramado virtual com equipes 90 Overall padronizadas. Fase de grupos seguida de mata-mata com prorrogação de ouro.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-controller"></i> Modo:</span><span class="spec-value">1v1 Tempo 6 Min</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">16 Jogadores</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Troféu + R$ 100</span></div>
+                </div>
+              </div>
+              <a href="https://forms.gle/9sRdAYjznyPCim9E7" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-ticket-perforated-fill"></i> INSCREVER-SE
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3: KOF -->
+        <div class="flip-card" id="card-kof">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote5.jpg" alt="The King Of Fighters" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-kof">
+                <div class="flame-strike"></div>
+                <div class="hit-spark hit-1">💥</div>
+                <div class="hit-spark hit-2">⚡</div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag pink-tag">FLIPERAMA</span>
+                <h3 class="game-title">The King Of Fighters</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Arcade Clássico</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> ELIMINATÓRIAS</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Batalha de Trios KOF</h4>
+                <p class="back-description">Tradição pura: monte seu trio de personagens favoritos em confrontos com suporte a controles arcade e chave de dupla eliminação.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-controller"></i> Modo:</span><span class="spec-value">Equipes 3v3 Clássico</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">16 Desafiantes</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Troféu + R$ 100</span></div>
+                </div>
+              </div>
+              <a href="https://forms.gle/9sRdAYjznyPCim9E7" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-ticket-perforated-fill"></i> INSCREVER-SE
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4: Mario Kart -->
+        <div class="flip-card" id="card-mariokart">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote6.jpg" alt="Mario Kart" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-mariokart">
+                <div class="red-shell">🐢</div>
+                <div class="drift-smoke"></div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag cyan-tag">NINTENDO SWITCH 2</span>
+                <h3 class="game-title">Mario Kart</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Grand Prix 150cc</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> CORRIDA</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Circuito Rainbow Road</h4>
+                <p class="back-description">Cascos azuis, bananas e amizades desfeitas na pista. Baterias eliminatórias de 4 pistas com pontuação somada até a grande final.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-controller"></i> Modo:</span><span class="spec-value">Livre</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">Livre</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Nenhum</span></div>
+                </div>
+              </div>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-ticket-perforated-fill"></i> LIVRE
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5: Jogos De Tabuleiro -->
+        <div class="flip-card" id="card-clash">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote7.jpg" alt="Jogos de Tabuleiro" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1563206767-5b18f218e8de?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-clash">
+                <div class="tesla-zap"></div>
+                <div class="crown-gem gem-1">💎</div>
+                <div class="crown-gem gem-2">💎</div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag purple-tag">AR LIVRE</span>
+                <h3 class="game-title">Jogos De Tabuleiro</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Evento Gratuito</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> AO VIVO</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">JOGOS DE TABULEIRO</h4>
+                <p class="back-description">Damas, baralho, xadrez e monopoly são sensações e entretenimento ao ar livre.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-controller"></i> Modo:</span><span class="spec-value">Mesa</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">Ilimitado</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Nenhuma</span></div>
+                </div>
+              </div>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-ticket-perforated-fill"></i> LIVRE PARA O PÚBLICO
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6: Caçada Heróica -->
+        <div class="flip-card" id="card-rpg">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote16.jpg" alt="Caçada heróica" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-rpg">
+                <div class="magic-circle"></div>
+                <div class="d20-glow">🎲</div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag gold-tag">NOVA ROMA</span>
+                <h3 class="game-title">Caçada heróica</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Evento Gratuito</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> AO AR LIVRE</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Coleta De QR CODE no evento</h4>
+                <p class="back-description">Coletando Heróis espalhados por todo o evento com acesso direto à Wiki.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-dice-5-fill"></i> Modo:</span><span class="spec-value">Livre</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Grupos:</span><span class="spec-value">Nenhum</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Mangás e Kits</span></div>
+                </div>
+              </div>
+              <a href="herois.html" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-compass"></i> ACESSAR WIKI
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7: Concurso de Cosplay -->
+        <div class="flip-card" id="card-cosplay">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote9.jpg" alt="Torneio de Cosplay" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-cosplay">
+                <div class="spotlight-beam"></div>
+                <div class="camera-flash"></div>
+                <div class="glamour-stars">✨</div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag pink-tag">CULTURA & ARTE</span>
+                <h3 class="game-title">Concurso de Cosplay</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Desfile & Performance</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> PALCO PRINCIPAL</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Nexus Cosplay</h4>
+                <p class="back-description">Apresentações solo e em grupo avaliadas por cosplayers profissionais convidados. Critérios: fidelidade do traje, acabamento e atuação cênica.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-person-badge"></i> Modo:</span><span class="spec-value">Desfile & Apresentação</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">40 Participantes</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">R$ 2.000 + Troféu</span></div>
+                </div>
+              </div>
+              <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-stars"></i> INSCREVER COSPLAY
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8: Torneio de Quizzes -->
+        <div class="flip-card" id="card-quiz">
+          <div class="flip-card-inner">
+            <div class="flip-front card-tournament cyber-hud-corners">
+              <img src="mascote10.jpg" alt="Torneio de Quizzes" class="card-thumb-bg" onerror="this.src='https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?auto=format&fit=crop&w=800&q=80'">
+              <div class="card-gradient-overlay"></div>
+              
+              <div class="card-theme-fx fx-quiz">
+                <div class="quiz-waves"></div>
+                <div class="quiz-brain">💡</div>
+              </div>
+
+              <div class="card-details">
+                <span class="genre-tag cyan-tag">CULTURA GEEK</span>
+                <h3 class="game-title">Torneio de Quizzes</h3>
+                <div class="rating-row">
+                  <span class="stars">★★★★★</span>
+                  <span class="reviews">Trivia Multiverso</span>
+                </div>
+                <button type="button" class="btn-card-action" onclick="flipCardOpen(this)">
+                  <i class="bi bi-eye"></i> VER REGRAS
+                </button>
+              </div>
+            </div>
+            <div class="flip-back card-tournament-back cyber-hud-corners">
+              <div class="back-header">
+                <span class="back-status live-now"><i class="bi bi-broadcast"></i> INTERATIVO</span>
+                <button type="button" class="btn-close-flip" onclick="flipCardBack(this)" aria-label="Voltar"><i class="bi bi-arrow-left"></i></button>
+              </div>
+              <div class="back-content">
+                <h4 class="back-title">Batalha de Conhecimento Geek</h4>
+                <p class="back-description">Perguntas em tempo real sobre animes, games clássicos, cinema e lore de livros de fantasia com pontuação dinâmica por rapidez na resposta.</p>
+                <div class="back-event-specs">
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-question-diamond"></i> Modo:</span><span class="spec-value">Eliminação ao Vivo</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-people-fill"></i> Vagas:</span><span class="spec-value">6 Equipes</span></div>
+                  <div class="spec-row"><span class="spec-label"><i class="bi bi-trophy"></i> Premiação:</span><span class="spec-value">Colecionáveis Raros</span></div>
+                </div>
+              </div>
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-question-diamond-fill"></i> INSCREVER-SE
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SEÇÃO DE VÍDEOS / STREAMS (YOUTUBE EMBED)
+       ========================================================== -->
+  <section class="video-section" id="videos">
+    <div class="video-container">
+      <div class="main-player-card cyber-hud-corners">
+        <div class="player-top-bar">
+          <span class="live-indicator"><span class="live-dot"></span> TRANSMISSÃO OFICIAL NEXUS</span>
+        </div>
+
+        <div class="video-iframe-wrapper">
+          <iframe 
+            id="youtube-player"
+            src="https://www.youtube-nocookie.com/embed/L_LUpnjgPso?enablejsapi=1&rel=0" 
+            title="Nexus Gen Stream Player" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+
+        <div class="player-footer">
+          <h3 id="current-video-title">Abertura Oficial • Nexus Generations 2027</h3>
+          <div class="player-stats">
+            <span class="stat-views"><i class="bi bi-youtube" style="color: #ff0000;"></i> Canal Nexus Gen</span>
+            <span class="stat-separator">•</span>
+            <span class="stat-game" id="current-video-tag">Destaque</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-playlist">
+        <div class="playlist-item active"
+             data-yt-id="L_LUpnjgPso"
+             data-title="Abertura Oficial • Nexus Generations 2027"
+             data-views="Em Destaque"
+             data-tag="Trailer">
+          <div class="item-thumb-box thumb-lightning"><i class="bi bi-play-circle-fill"></i></div>
+          <div class="item-info">
+            <h4>Abertura Nexus 2027</h4>
+            <span class="item-views"><i class="bi bi-youtube"></i> Assista Agora</span>
+          </div>
+        </div>
+
+        <div class="playlist-item"
+             data-yt-id="qIcTM8WXFjk"
+             data-title="Cyberpunk 2077 Anime • Inspiração da Arena"
+             data-views="Trailer Oficial"
+             data-tag="Anime">
+          <div class="item-thumb-box thumb-fire"><i class="bi bi-controller"></i></div>
+          <div class="item-info">
+            <h4>Cyberpunk Anime</h4>
+            <span class="item-views"><i class="bi bi-trophy"></i> Teaser</span>
+          </div>
+        </div>
+
+        <div class="playlist-item"
+             data-yt-id="dQw4w9WgXcQ"
+             data-title="Painel Especial • Segredos da Comunidade"
+             data-views="Palco Nexus"
+             data-tag="Painel">
+          <div class="item-thumb-box thumb-target"><i class="bi bi-person-badge"></i></div>
+          <div class="item-info">
+            <h4>Segredos da Comunidade</h4>
+            <span class="item-views"><i class="bi bi-stars"></i> Bastidores</span>
+          </div>
+        </div>
+
+        <div class="playlist-item"
+             data-yt-id="jfKfPfyJRdk"
+             data-title="Lofi Geek Radio • Estudo & Games 24/7"
+             data-views="Live Contínua"
+             data-tag="Rádio">
+          <div class="item-thumb-box thumb-rocket"><i class="bi bi-broadcast"></i></div>
+          <div class="item-info">
+            <h4>Lofi Geek Radio</h4>
+            <span class="item-views"><i class="bi bi-soundwave"></i> Ao Vivo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SEÇÃO: PATROCINADORES & PARCEIROS (EFEITO THANOS SNAP)
+       ========================================================== -->
+  <section class="partners-section" id="parceiros">
+    <div class="section-container">
+      <div class="partners-header">
+        <span class="story-tag">ECOSSISTEMA GEEK</span>
+        <h2 class="section-title">Nossos <span class="cyan-text cyber-flicker">Patrocinadores & Parceiros</span></h2>
+        <p class="section-subtitle">
+          Marcas lendárias que fortalecem a arena e tornam o multiverso Nexus real a cada temporada.
+        </p>
+      </div>
+
+      <div class="partners-grid-thanos" id="partners-container">
+        <!-- Renderizado dinamicamente pelo script.js sem slots vazios -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SEÇÃO: INGRESSOS & PLANOS DE BATALHA (UTICKET)
+       ========================================================== -->
+  <section class="pricing-section" id="ingressos">
+    <div class="section-container">
+      <div class="pricing-header">
+        <span class="story-tag">INGRESSOS & PASSES</span>
+        <h2 class="section-title">Escolha Seu <span class="cyan-text cyber-flicker">Plano de Batalha</span></h2>
+        <p class="section-subtitle">
+          Do jogador casual que quer curtir o evento às guildas profissionais prontas para o palco mundial.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Plano 1: Meia Entrada -->
+        <div class="pricing-card cyber-hud-corners">
+          <div class="plan-header">
+            <span class="plan-type">INICIANTE</span>
+            <h3>Meia Entrada</h3>
+            <div class="price-wrap">
+              <span class="currency">R$</span>
+              <span class="amount">40</span>
+              <span class="period">/ Estudante</span>
+            </div>
+            <p class="plan-desc">Estudantes, PCD e pessoas acima de 60 anos.</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2"></i> Acesso a jogos e eventos</li>
+            <li><i class="bi bi-check2"></i> Torneios abertos ao público</li>
+            <li><i class="bi bi-check2"></i> Acesso ao auditório principal</li>
+            <li><i class="bi bi-check2"></i> Acesso a lojas de animes e jogos</li>
+          </ul>
+          <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-ticket-holo btn-holo-cyan">
+            COMPRAR INGRESSO
+          </a>
+        </div>
+
+        <!-- Plano 2: NEXUS PADRÃO -->
+        <div class="pricing-card card-featured cyber-hud-corners">
+          <div class="popular-ribbon">POPULAR</div>
+          <div class="plan-header">
+            <span class="plan-type cyan-tag">PRO GAMER</span>
+            <h3>NEXUS PADRÃO</h3>
+            <div class="price-wrap">
+              <span class="currency">R$</span>
+              <span class="amount cyan-text">80</span>
+              <span class="period">/ Inteira</span>
+            </div>
+            <p class="plan-desc">Tudo que você precisa para competir a sério e curtir todo o evento, ingresso padrão.</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2 cyan-text"></i> Acesso a jogos e eventos</li>
+            <li><i class="bi bi-check2 cyan-text"></i> Torneios abertos ao público</li>
+            <li><i class="bi bi-check2 cyan-text"></i> Acesso ao auditório principal</li>
+            <li><i class="bi bi-check2 cyan-text"></i> Acesso a lojas de animes e jogos</li>
+            <li><i class="bi bi-check2 cyan-text"></i> Pulseiras de identificação exclusiva</li>
+          </ul>
+          <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-ticket-holo btn-holo-pro">
+            GARANTIR PASS PRO
+          </a>
+        </div>
+
+        <!-- Plano 3: VIP DELUXE -->
+        <div class="pricing-card cyber-hud-corners">
+          <div class="plan-header">
+            <span class="plan-type purple-tag">ELITE</span>
+            <h3>KITSUNINE VIP DELUXE</h3>
+            <div class="price-wrap">
+              <span class="currency">R$</span>
+              <span class="amount">200</span>
+              <span class="period">/ VIP</span>
+            </div>
+            <p class="plan-desc">Poder total para eventos, brindes exclusivos e acesso vip aos bastidores.</p>
+          </div>
+          <ul class="plan-features">
+            <li><i class="bi bi-check2"></i> Todos os benefícios do plano Pro</li>
+            <li><i class="bi bi-check2"></i> Acesso aos bastidores, passe livre aos torneios e eventos</li>
+            <li><i class="bi bi-check2"></i> Autógrafo e fotos vip com a atração principal, com direito a perguntas e conversas</li>
+            <li><i class="bi bi-check2"></i> Box Vip exclusivo do evento avaliado em mais de 150 R$ com Colecionáveis do nosso mascote</li>
+            <li><i class="bi bi-check2"></i> Suporte prioritário em filas, crachá holográfico e voucher grátis de alimentação e bebidas</li>
+          </ul>
+          <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-ticket-holo btn-holo-cyan">
+            GARANTA O VIP
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       SEÇÃO: NOTÍCIAS & ATUALIZAÇÕES DA ARENA
+       ========================================================== -->
+  <section class="news-section" id="programacao">
+    <div class="section-container">
+      <div class="news-header">
+        <div class="header-texts">
+          <span class="story-tag">ÚLTIMAS NOTÍCIAS</span>
+          <h2 class="section-title">Atualizações da <span class="cyan-text cyber-flicker">Arena</span></h2>
+          <p class="section-subtitle">Fique por dentro dos patches, anúncios oficiais de competições e histórias da comunidade.</p>
+        </div>
+        <a href="https://www.tiktok.com/@nexus_gen_events?is_from_webapp=1&sender_device=pc" class="btn-view-all">
+          TODOS OS ARTIGOS <i class="bi bi-arrow-right"></i>
+        </a>
+      </div>
+
+      <div class="news-grid">
+        <!-- Notícia 1 -->
+        <article class="news-card cyber-hud-corners">
+          <div class="news-thumb-box">
+            <img src="mascote15.jpg" alt="Nexus Championship 2027" class="news-thumb-img" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80'">
+            <div class="news-thumb-gradient"></div>
+            <span class="news-tag-badge">TORNEIO</span>
+          </div>
+          <div class="news-body">
+            <div class="news-meta">
+              <span><i class="bi bi-calendar3"></i> 28 de Nov, 2026</span>
+              <span>•</span>
+              <span><i class="bi bi-clock"></i> 4 min de leitura</span>
+            </div>
+            <h3 class="news-title">Nexus Championship 2027: O Guia Definitivo</h3>
+            <p class="news-excerpt">Tudo o que você precisa saber antes do maior festival de eSports e convenções do ano começar.</p>
+            <a href="https://www.tiktok.com/@nexus_gen_events?is_from_webapp=1&sender_device=pc" class="news-read-more">LER MAIS <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Notícia 2 -->
+        <article class="news-card cyber-hud-corners">
+          <div class="news-thumb-box">
+            <img src="mascote13.jpg" alt="Notas do Patch" class="news-thumb-img" onerror="this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80'">
+            <div class="news-thumb-gradient"></div>
+            <span class="news-tag-badge badge-cyan">PODCAST</span>
+          </div>
+          <div class="news-body">
+            <div class="news-meta">
+              <span><i class="bi bi-calendar3"></i> 20 de Nov, 2026</span>
+              <span>•</span>
+              <span><i class="bi bi-clock"></i> 3 min de leitura</span>
+            </div>
+            <h3 class="news-title cyan-text">Nexus Cast: Conversas Geek Sem Filtro</h3>
+            <p class="news-excerpt">Sintoniza os teus auscultadores para debates sem limites sobre sagas icónicas, teorias malucas de animes e os bastidores da cultura pop.</p>
+            <a href="www.youtube.com/@Nexus_Gen_Events" class="news-read-more">LER MAIS <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </article>
+
+        <!-- Notícia 3 -->
+        <article class="news-card cyber-hud-corners">
+          <div class="news-thumb-box">
+            <img src="mascote14.jpg" alt="Comunidade Nexus" class="news-thumb-img" onerror="this.src='https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=800&q=80'">
+            <div class="news-thumb-gradient"></div>
+            <span class="news-tag-badge badge-pink">ORIGENS</span>
+          </div>
+          <div class="news-body">
+            <div class="news-meta">
+              <span><i class="bi bi-calendar3"></i> 14 de Nov, 2026</span>
+              <span>•</span>
+              <span><i class="bi bi-clock"></i> 5 min de leitura</span>
+            </div>
+            <h3 class="news-title">De Quatro Sonhadores ao Multiverso: Como Nasceu o NexusGen</h3>
+            <p class="news-excerpt">Uma madrugada, café frio e o sonho de erguer o ponto de encontro definitivo para todas as gerações da cultura geek.</p>
+            <a href="https://www.instagram.com/nexus_gen_events?xtok=b2NjbDRpN21weWw4" class="news-read-more">LER MAIS <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       RODAPÉ
+       ========================================================== -->
+  <footer class="footer-wrapper">
+    <div class="footer-container">
+      <div class="newsletter-bar">
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Inscrição confirmada na Nexus!');">
+          <input type="email" placeholder="Digite seu melhor e-mail corporativo ou pessoal..." required>
+          <button type="submit" class="btn-cyan"><i class="bi bi-send-fill"></i> INSCREVER-SE</button>
+        </form>
+        <span class="newsletter-disclaimer">Zero spam. Leia nossa <a href="javascript:void(0)" onclick="openLegalModal('privacidade')">Política de Privacidade</a>.</span>
+      </div>
+
+      <div class="footer-content-grid">
+        <div class="footer-brand-col">
+          <div class="logo">
+            <div class="logo-icon">
+              <img src="mascoteicon.jpg" alt="Logo Nexus" onerror="this.src='mascote.jpg'">
+            </div>
+            <span class="logo-text">NEXUS<span>GEN</span></span>
+          </div>
+          <p class="footer-desc">
+            O principal destino para esportes eletrônicos, torneios de alto nível e streaming interativo. Criado por gamers, para gamers.
+          </p>
+          <div class="footer-social-links">
+            <a href="https://www.tiktok.com/@nexus_gen_events?is_from_webapp=1&sender_device=pc" title="tiktok"><i class="bi bi-tiktok"></i></a>
+            
+            <a href="www.youtube.com/@Nexus_Gen_Events" title="YouTube"><i class="bi bi-youtube"></i></a>
+            
+            <a href="https://www.instagram.com/nexus_gen_events?xtok=b2NjbDRpN21weWw4" title="Instagram"><i class="bi bi-instagram"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>PLATAFORMA</h4>
+          <ul>
+            <li><a href="#torneios">Torneios Ativos</a></li>
+            <li><a href="#videos">Transmissões ao Vivo</a></li>
+            <li><a href="#ingressos">Preços & Passes</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h4>EMPRESA</h4>
+          <ul>
+            <li><a href="#sobre">Sobre Nós</a></li>
+            <li><a href="#parceiros">Parceiros Oficiais</a></li>
+            <li><a href="#ingressos">Contato & Suporte</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-newsletter-col">
+          <h4>FIQUE POR DENTRO</h4>
+          <p>Receba em primeira mão novidades dos torneios, lotes de ingressos e avisos da convenção.</p>
+          <form class="mini-sub-form" onsubmit="event.preventDefault(); alert('E-mail cadastrado com sucesso!');">
+            <input type="email" placeholder="Seu e-mail..." required>
+            <button type="submit" class="btn-mini-arrow"><i class="bi bi-arrow-right"></i></button>
+          </form>
+          <small class="mini-lock"><i class="bi bi-shield-check"></i> Sem spam. Cancele quando quiser.</small>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <p>&copy; 2026 Nexus Generations. Todos os direitos reservados. Feito com paixão pela comunidade geek.</p>
+        <div class="footer-legal-links">
+          <a href="javascript:void(0)" onclick="openLegalModal('privacidade')">Privacidade</a>
+          <a href="javascript:void(0)" onclick="openLegalModal('termos')">Termos de Uso</a>
+          <a href="javascript:void(0)" onclick="openLegalModal('seguranca')">Segurança</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================
+       POPUP / MODAL JURÍDICO BUROCRÁTICO
+       ========================================================== -->
+  <div class="legal-modal-overlay" id="legalModalOverlay" onclick="closeLegalModal()">
+    <div class="legal-modal-box cyber-hud-corners" onclick="event.stopPropagation()">
+      <div class="legal-modal-header">
+        <div class="legal-title-wrap">
+          <i class="bi bi-shield-lock-fill cyan-text"></i>
+          <h3 id="legalModalTitle">DOCUMENTO JURÍDICO</h3>
+        </div>
+        <button type="button" class="legal-modal-close" onclick="closeLegalModal()"><i class="bi bi-x-lg"></i></button>
+      </div>
+      <div class="legal-modal-body" id="legalModalBody">
+        <!-- Conteúdo burocrático gerado dinamicamente -->
+      </div>
+      <div class="legal-modal-footer">
+        <button type="button" class="btn-cyan" onclick="closeLegalModal()">DECLARO QUE LI E COMPREENDI</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL CYBERPUNK: AUTENTICAÇÃO HOLOGRÁFICA (LOGIN & CADASTRO)
+       ========================================================== -->
+  <div class="auth-modal-overlay" id="authModalOverlay" onclick="closeAuthModal()">
+    <div class="auth-modal-box cyber-hud-corners" onclick="event.stopPropagation()">
+      <div class="auth-laser-beam"></div>
+
+      <button type="button" class="auth-close-btn" onclick="closeAuthModal()" title="Fechar Terminal">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <div class="auth-header">
+        <div class="auth-logo-badge">
+          <i class="bi bi-shield-lock-fill"></i>
+          <span>TERMINAL DE ACESSO // NEXUS-OS</span>
+        </div>
+        <h2 class="auth-title" id="authTitle">CRIAR <span class="cyan-text cyber-flicker">CONTA</span></h2>
+        <p class="auth-subtitle" id="authSubtitle">Gere sua credencial digital para acessar torneios e ingressos exclusivos.</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab-btn active" id="tabRegisterBtn" onclick="switchAuthMode('register')">
+          <i class="bi bi-person-plus-fill"></i> NOVO OPERADOR
+        </button>
+        <button type="button" class="auth-tab-btn" id="tabLoginBtn" onclick="switchAuthMode('login')">
+          <i class="bi bi-box-arrow-in-right"></i> LOGIN DE ACESSO
+        </button>
+      </div>
+
+      <!-- FORMULÁRIO: CRIAR CONTA -->
+      <form class="auth-form" id="registerForm" onsubmit="handleAuthSubmit(event, 'register')">
+        <div class="auth-input-group">
+          <label><i class="bi bi-person-badge"></i> NICKNAME / NOME DE COMBATE</label>
+          <div class="input-glow-wrap">
+            <input type="text" id="regName" placeholder="Ex: Hayato_Gamer" required autocomplete="nickname">
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label><i class="bi bi-envelope-at-fill"></i> E-MAIL PRINCIPAL</label>
+          <div class="input-glow-wrap">
+            <input type="email" id="regEmail" placeholder="seu-email@portalnexus.com" required autocomplete="email">
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label><i class="bi bi-key-fill"></i> SENHA DE SEGURANÇA</label>
+          <div class="input-glow-wrap password-wrap">
+            <input type="password" id="regPass" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+            <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('regPass', this)">
+              <i class="bi bi-eye-slash-fill"></i>
+            </button>
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <label><i class="bi bi-shield-check"></i> CONFIRMAR SENHA</label>
+          <div class="input-glow-wrap password-wrap">
+            <input type="password" id="regPassConfirm" placeholder="••••••••" required minlength="6" autocomplete="new-password">
+            <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('regPassConfirm', this)">
+              <i class="bi bi-eye-slash-fill"></i>
+            </button>
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <label class="auth-terms-checkbox">
+          <input type="checkbox" required>
+          <span>Concordo com os <a href="javascript:void(0)" onclick="openLegalModal('termos')">Protocolos de Uso</a> e as <a href="javascript:void(0)" onclick="openLegalModal('privacidade')">Diretrizes da Arena</a>.</span>
+        </label>
+
+        <button type="submit" class="btn-cyber-submit">
+          <i class="bi bi-fingerprint"></i> INICIALIZAR REGISTRO DIGITAL
+        </button>
+      </form>
+
+      <!-- FORMULÁRIO: FAZER LOGIN -->
+      <form class="auth-form" id="loginForm" style="display: none;" onsubmit="handleAuthSubmit(event, 'login')">
+        <div class="auth-input-group">
+          <label><i class="bi bi-envelope-at-fill"></i> E-MAIL CADASTRADO</label>
+          <div class="input-glow-wrap">
+            <input type="email" id="logEmail" placeholder="seu-email@portalnexus.com" required autocomplete="email">
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <div class="auth-input-group">
+          <div class="label-with-link">
+            <label><i class="bi bi-key-fill"></i> SENHA</label>
+            <a href="javascript:void(0)" class="forgot-pass-link" onclick="alert('Recuperação via token quântico em breve!')">Esqueceu a chave?</a>
+          </div>
+          <div class="input-glow-wrap password-wrap">
+            <input type="password" id="logPass" placeholder="••••••••" required autocomplete="current-password">
+            <button type="button" class="btn-toggle-pass" onclick="togglePasswordVisibility('logPass', this)">
+              <i class="bi bi-eye-slash-fill"></i>
+            </button>
+            <div class="input-corner-top"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-cyber-submit">
+          <i class="bi bi-box-arrow-in-right"></i> AUTENTICAR NO SISTEMA
+        </button>
+      </form>
+
+      <div class="auth-divider">
+        <span>OU CONECTE-SE VIA LINK DIRETO</span>
+      </div>
+
+      <button type="button" class="btn-google-cyber" onclick="handleGoogleSocialMock()">
+        <i class="bi bi-google"></i> ENTRAR COM CONTA GOOGLE
+      </button>
+
+      <div class="auth-footer-prompt">
+        <span id="authPromptText">Já possui uma credencial de acesso?</span>
+        <button type="button" class="auth-toggle-link" id="authToggleAction" onclick="switchAuthMode('login')">
+          Acessar Terminal
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       MODAL TERMINAL HOLO-DECK (PAINEL DO OPERADOR)
+       ========================================================== -->
+  <div class="holodeck-modal-overlay" id="holodeckModalOverlay" onclick="closeHolodeckModal()">
+    <div class="holodeck-container cyber-hud-corners" onclick="event.stopPropagation()">
+      <div class="holodeck-topbar">
+        <div class="holodeck-status-tag">
+          <span class="live-dot"></span>
+          <span>NEXUS-OS // PROTOCOLO DE IDENTIFICAÇÃO V4.8</span>
+        </div>
+        <button type="button" class="holodeck-close-btn" onclick="closeHolodeckModal()" title="Fechar Terminal">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <div class="holodeck-grid">
+        <!-- COLUNA ESQUERDA: O CRACHÁ HOLOGRÁFICO -->
+        <aside class="holodeck-badge-card">
+          <div class="badge-laser-line"></div>
+
+          <!-- ÁREA DO AVATAR COM DISPARADOR DE FOTO/CÂMARA -->
+          <div class="badge-avatar-wrap" onclick="toggleAvatarOptions()" title="Alterar fotografia do operador">
+            <img id="holoAvatarImg" class="badge-avatar-photo" alt="Foto do Operador" style="display: none;">
+            <div class="badge-avatar" id="holoAvatarLetter">G</div>
+            <div class="badge-avatar-overlay">
+              <i class="bi bi-camera-fill"></i>
+            </div>
+            <div class="badge-verified-icon" title="Operador Verificado">
+              <i class="bi bi-patch-check-fill"></i>
+            </div>
+
+            <div class="avatar-dropdown" id="avatarDropdown" onclick="event.stopPropagation()">
+              <label class="avatar-drop-item">
+                <i class="bi bi-upload"></i> Carregar Ficheiro
+                <input type="file" id="fileAvatarInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+              </label>
+              <button type="button" class="avatar-drop-item" onclick="openWebcamCapture()">
+                <i class="bi bi-camera-video-fill"></i> Abrir Câmara
+              </button>
+            </div>
+          </div>
+
+          <!-- NOME EM NEON E GUILDA DO OPERADOR -->
+          <div class="badge-identity-block">
+            <h3 class="badge-operator-name neon-cyan-text" id="holoDisplayName">Gustavo Aragão</h3>
+            <div class="badge-guild-tag guild-semideuses" id="holoGuildTag">
+              <i class="bi bi-fire"></i> <span id="holoGuildText">CHALÉ DOS SEMIDEUSES</span>
+            </div>
+          </div>
+
+          <!-- HUD DE EXPERIÊNCIA & NÍVEL (NÍVEL 01 A 99) -->
+          <div class="badge-xp-hud">
+            <div class="xp-hud-header">
+              <span class="xp-tier-title" id="holoXpTier">NOVIÇO DO CHALÉ // NÍVEL 01</span>
+              <span class="xp-counter-tag"><strong id="holoXpVal">0</strong> / 999 XP</span>
+            </div>
+            
+            <div class="xp-progress-bar">
+              <div class="xp-progress-fill" id="holoXpFill" style="width: 0%;">
+                <div class="xp-progress-glow"></div>
+              </div>
+            </div>
+
+            <div class="xp-sub-info">
+              <span>LVL ATUAL: <b class="cyan-text" id="holoLvlNumber">01</b></span>
+              <span>PRÓXIMO: <b class="pink-text" id="holoNextLvlNumber">02</b></span>
+            </div>
+          </div>
+
+          <div class="badge-data-box">
+            <div class="badge-data-row">
+              <span class="data-label"><i class="bi bi-envelope"></i> E-MAIL:</span>
+              <span class="data-val" id="holoUserEmail">operador@nexus.com</span>
+            </div>
+            <div class="badge-data-row">
+              <span class="data-label"><i class="bi bi-fingerprint"></i> ID NEXUS:</span>
+              <span class="data-val" id="holoUserId">#NX-2027-8841</span>
+            </div>
+            <div class="badge-data-row">
+              <span class="data-label"><i class="bi bi-shield-shaded"></i> ACESSO:</span>
+              <span class="data-val cyan-text">CREDENCIAL ATIVA</span>
+            </div>
+          </div>
+
+          <!-- QR Code Holográfico (Exclusivo VIP) -->
+          <div class="badge-qr-section" id="holoBadgeQrSection" style="display: none;">
+            <div class="qr-mock-box">
+              <img id="holoBadgeQrImg" src="" alt="QR Code da Credencial" class="qr-code-img">
+              <div class="qr-scan-line"></div>
+            </div>
+            <span class="qr-caption"><i class="bi bi-upc-scan"></i> VALIDAÇÃO CATRACA VIP 2027</span>
+          </div>
+
+          <!-- Bloco de Bloqueio quando não for VIP -->
+          <div class="badge-lock-notice" id="holoBadgeLockNotice" style="text-align: center; padding: 1.2rem 0.8rem; margin: 0.8rem 0; border: 1px dashed rgba(255, 0, 127, 0.35); border-radius: 10px; background: rgba(255, 0, 127, 0.05);">
+            <i class="bi bi-shield-lock-fill" style="font-size: 1.6rem; color: #ff007f;"></i>
+            <h5 style="font-family: 'Orbitron', sans-serif; font-size: 0.8rem; color: #ff007f; margin: 0.5rem 0 0.2rem;">ACESSO BLOQUEADO</h5>
+            <p style="font-size: 0.72rem; color: #94a3b8; margin: 0;">Ative seu passe VIP uTicket para liberar a catraca digital.</p>
+          </div>
+
+          <button type="button" class="btn-badge-logout" id="holoLogoutBtn">
+            <i class="bi bi-box-arrow-right"></i> DESCONECTAR TERMINAL
+          </button>
+        </aside>
+
+        <!-- COLUNA DIREITA: ABAS E PAINÉIS DE GESTÃO -->
+        <section class="holodeck-main-panel">
+          <div class="holodeck-tabs-nav">
+            <button type="button" class="holodeck-tab active" id="tabBtnTickets" onclick="switchHolodeckTab('tickets')">
+              <i class="bi bi-ticket-perforated-fill"></i> MEUS INGRESSOS
+            </button>
+            <button type="button" class="holodeck-tab" id="tabBtnTournaments" onclick="switchHolodeckTab('tournaments')">
+              <i class="bi bi-trophy-fill"></i> TORNEIOS & ARENA
+            </button>
+            <button type="button" class="holodeck-tab" id="tabBtnSettings" onclick="switchHolodeckTab('settings')">
+              <i class="bi bi-gear-fill"></i> CONFIGURAÇÕES
+            </button>
+          </div>
+
+          <!-- ABA 1: MEUS INGRESSOS (RESGATE VIP) -->
+          <div class="holodeck-tab-pane active" id="paneTickets">
+            <div class="pane-header-info">
+              <h4>CREDENCIAL VIP & PROTOCOLO UTICKET</h4>
+              <p>O Crachá Holográfico da Arena é de uso exclusivo para portadores do passaporte KITSUNINE VIP DELUXE.</p>
+            </div>
+
+            <!-- BLOCO DE RESGATE DO CÓDIGO UTICKET -->
+            <div class="vip-redeem-card cyber-hud-corners" id="vipRedeemCard" style="background: rgba(8,6,20,0.7); border: 1px solid rgba(255, 0, 127, 0.3); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 0.8rem;">
+                <i class="bi bi-patch-check-fill pink-text" style="font-size: 1.4rem;"></i>
+                <h5 style="margin: 0; font-family: 'Orbitron', sans-serif; color: #fff;">ATIVAR CÓDIGO DO INGRESSO VIP</h5>
+              </div>
+              <p style="color: #94a3b8; font-size: 0.82rem; margin-bottom: 1rem;">
+                Comprou o passe <strong>Kitsunine VIP Deluxe</strong> na uTicket? Insira o código alfanumérico que consta no seu bilhete digital para vincular o crachá holográfico ao seu perfil.
+              </p>
+              
+              <form onsubmit="handleRedeemVipTicket(event)" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <input type="text" id="inputVipCode" class="cyber-field" placeholder="Ex: UTK-VIP-8421" style="flex: 1; min-width: 200px; text-transform: uppercase;" required>
+                <button type="submit" class="btn-cyan-small" id="btnSubmitVip">
+                  <i class="bi bi-unlock-fill"></i> RESGATAR CREDENCIAL VIP
+                </button>
+              </form>
+            </div>
+
+            <!-- CONTENTOR DINÂMICO DOS VOUCHERS CONFIRMADOS -->
+            <div id="ticketsContainer">
+              <div style="text-align: center; padding: 2rem; color: var(--cyan); font-family: 'Share Tech Mono', monospace;">
+                <i class="bi bi-arrow-repeat"></i> A CONSULTAR CREDENCIAIS NO SISTEMA...
+              </div>
+            </div>
+
+            <div class="buy-more-strip">
+              <span>Ainda não possui o passe exclusivo?</span>
+              <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-cyan-small">
+                <i class="bi bi-box-arrow-up-right"></i> COMPRAR VIP NA UTICKET
+              </a>
+            </div>
+          </div>
+
+          <!-- ABA 2: TORNEIOS & ARENA (UTICKET) -->
+          <div id="paneTournaments" class="holodeck-tab-pane" style="display: none;">
+            <div class="settings-header-box">
+              <h3 class="pane-headline">INSCRIÇÕES & PROTOCOLO DE COMBATE</h3>
+              <p class="pane-subheadline">As inscrições e chaves competitivas oficiais são geridas via bilheteira uTicket.</p>
+            </div>
+            <div class="empty-tickets-box" style="text-align: center; padding: 2.5rem 1rem; background: rgba(0,0,0,0.3); border-radius: 14px; border: 1px dashed rgba(0,242,254,0.3); margin-bottom: 1.2rem;">
+              <i class="bi bi-trophy-fill" style="font-size: 2.4rem; color: var(--cyan);"></i>
+              <h4 style="font-family:'Orbitron',sans-serif; color:#cbd5e1; margin: 0.8rem 0 0.4rem;">VAGAS ABERTAS NA UTICKET</h4>
+              <p style="color:#94a3b8; font-size:0.85rem; margin-bottom: 1.2rem;">Garante a tua vaga no chaveamento oficial da Arena Nexus de 24 de Abril de 2027.</p>
+              <a href="https://uticket.com.br" target="_blank" rel="noopener noreferrer" class="btn-cyan-small" style="display: inline-flex;">
+                <i class="bi bi-box-arrow-up-right"></i> ACESSAR CHAVEMENTOS NA UTICKET
+              </a>
+            </div>
+          </div>
+
+          <!-- ABA 3: CONFIGURAÇÕES -->
+          <div id="paneSettings" class="holodeck-tab-pane" style="display: none;">
+            <div class="settings-header-box">
+              <h3 class="pane-headline">CONFIGURAÇÕES DE CREDENCIAL</h3>
+              <p class="pane-subheadline">Atualiza o teu nome de combate, facção e preferências do terminal.</p>
+            </div>
+
+            <div class="settings-grid-layout">
+              <!-- BLOCO 1: IDENTIDADE E FAÇÃO -->
+              <div class="cyber-setting-card">
+                <h4 class="setting-card-title"><i class="bi bi-person-badge"></i> IDENTIDADE DA ARENA</h4>
+                <form onsubmit="handleUpdateNickname(event)">
+                  <div class="cyber-input-group">
+                    <label>NOME DE COMBATE / ALCUNHA</label>
+                    <input type="text" id="inputEditNickname" class="cyber-field" placeholder="Novo nome de combate" required>
+                  </div>
+
+                  <div class="cyber-input-group">
+                    <label>FACÇÃO / GUILDA DO OPERADOR</label>
+                    <select id="selectPlayerFaction" class="cyber-field">
+                      <option value="neutro">NENHUMA (NEUTRO)</option>
+                      <option value="semideuses">CHALÉ DOS SEMIDEUSES (LARANJA)</option>
+                      <option value="bruxos">ORDEM DOS BRUXOS (VERMELHO)</option>
+                      <option value="patrulha">GUARDA DA NOITE (PRETO & BRANCO)</option>
+                      <option value="runners">CYBORG RUNNERS (VERMELHO & AZUL)</option>
+                    </select>
+                  </div>
+
+                  <button type="submit" class="btn-cyan-small">
+                    <i class="bi bi-check2-circle"></i> SALVAR IDENTIDADE
+                  </button>
+                </form>
+              </div>
+
+              <!-- BLOCO 2: SEGURANÇA E PALAVRA-PASSE -->
+              <div class="cyber-setting-card">
+                <h4 class="setting-card-title"><i class="bi bi-shield-lock"></i> SEGURANÇA DA CONTA</h4>
+                <form onsubmit="handleUpdatePassword(event)">
+                  <div class="cyber-input-group">
+                    <label>NOVA PALAVRA-PASSE</label>
+                    <input type="password" id="inputNewPassword" class="cyber-field" placeholder="Mínimo 6 caracteres" minlength="6" required>
+                  </div>
+                  <div class="cyber-input-group">
+                    <label>CONFIRMAR NOVA PALAVRA-PASSE</label>
+                    <input type="password" id="inputConfirmPassword" class="cyber-field" placeholder="Repetir palavra-passe" minlength="6" required>
+                  </div>
+                  <button type="submit" class="btn-outline-cyan-small"><i class="bi bi-key-fill"></i> ATUALIZAR CHAVE</button>
+                </form>
+              </div>
+
+              <!-- BLOCO 3: PREFERÊNCIAS -->
+              <div class="cyber-setting-card full-span">
+                <h4 class="setting-card-title"><i class="bi bi-sliders"></i> PREFERÊNCIAS DO TERMINAL</h4>
+                <div class="settings-options-list">
+                  <label class="cyber-checkbox-label">
+                    <input type="checkbox" id="chkAlertTourneys" checked>
+                    <span>Receber alertas de chamadas para torneios no Holo-Deck</span>
+                  </label>
+                  <label class="cyber-checkbox-label">
+                    <input type="checkbox" id="chkSoundEffects" checked>
+                    <span>Efeitos sonoros holográficos ativados</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE CAPTURA DE CÂMARA -->
+  <div class="webcam-modal-overlay" id="webcamModalOverlay">
+    <div class="webcam-box cyber-hud-corners">
+      <div class="webcam-header">
+        <span><i class="bi bi-camera-video"></i> CAPTURA BIOMÉTRICA // OPERADOR</span>
+        <button type="button" class="holodeck-close-btn" onclick="closeWebcamCapture()"><i class="bi bi-x-lg"></i></button>
+      </div>
+      
+      <div class="video-preview-wrapper">
+        <video id="webcamStream" autoplay playsinline></video>
+        <canvas id="webcamCanvas" style="display: none;"></canvas>
+        <div class="camera-scan-grid"></div>
+      </div>
+
+      <div class="webcam-actions">
+        <button type="button" class="btn-cyan-small" onclick="capturePhotoFromStream()">
+          <i class="bi bi-camera"></i> CAPTURAR REGISTO
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT PRINCIPAL COMO MÓDULO FIREBASE -->
+  <script type="module" src="script.js"></script>
+</body>
+</html>
